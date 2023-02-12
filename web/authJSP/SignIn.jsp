@@ -5,7 +5,7 @@
     <title>Sem</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="../authStyle.css">
+    <link rel="stylesheet" href="../resources/css/authStyle.css">
 
     <script type="text/javascript">
         function ValidateUsername(username)

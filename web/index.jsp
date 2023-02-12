@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>Sem</title>
-    <link rel="stylesheet" href="authStyle.css">
+    <link rel="stylesheet" href="resources/css/authStyle.css">
 </head>
 <body>
     <div>

@@ -20,7 +20,7 @@ public class AvatarJDBC {
     public AvatarJDBC() throws IOException {
         Properties property = new Properties();
 
-        try (FileInputStream fis = new FileInputStream("C:\\Users\\user\\Desktop\\инфа\\jdbctest\\db.properties")){
+        try (FileInputStream fis = new FileInputStream("C:\\Users\\user\\Desktop\\jdbctest\\db.properties")){
             property.load(fis);
 
             String host = property.getProperty("db.host");
@@ -69,5 +69,21 @@ public class AvatarJDBC {
         if(generatedKeys.next()) {
             avatar.setId(generatedKeys.getInt(1));
         }
+    }
+
+    public void deleteAvatar(int index, int client_id) throws SQLException {
+        String sql = "DELETE FROM avatars " +
+                    "WHERE id = (" +
+                        "SELECT id " +
+                        "FROM avatars " +
+                        "WHERE client_id=?" +
+                        "ORDER BY id " +
+                        "LIMIT 1 OFFSET " + (index - 1) +
+                    ");";
+
+        PreparedStatement ps = this.connection.prepareStatement(sql);
+        ps.setInt(1, client_id);
+
+        ps.executeUpdate();
     }
 }

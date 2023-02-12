@@ -11,8 +11,12 @@ let eye_id = "eyeStyle";
 let mouth_id = "mouthStyle";
 
 let eye_image_id = "selectedEye";
+let mouth_image_id = "selectedMouth";
+let hair_image_id = "selectedHair";
 
-let imagePath = "/ProfileJSP/FaceElements/Eyes/"
+let hairPath = "/resources/FaceElements/Hairs/";
+let eyePath = "/resources/FaceElements/Eyes/";
+let mouthPath = "/resources/FaceElements/Mouths/";
 
 function ShowVariants(elem_id){
     if(document.getElementById(elem_id).style.display === ''){
@@ -43,15 +47,20 @@ function HairButtonClick(index, elem_id) {
     }
 
     const hair = document.getElementById(hair_id);
+    const hairImg = document.getElementById(hair_image_id);
 
     if (HairButton === index) {
         lastHair = null;
         HairButton = 0;
         hair.value = null;
+        hairImg.src = null;
+        hairImg.style.display = 'none';
     } else {
         hair.value = index;
         HairButton = index;
         lastHair = elem_id;
+        hairImg.src = hairPath + "hair" + index + ".png";
+        hairImg.style.display = '';
     }
 }
 function EyeButtonClick(index, elem_id) {
@@ -78,11 +87,12 @@ function EyeButtonClick(index, elem_id) {
         eye.value = index;
         EyeButton = index;
         lastEye = elem_id;
-        eyeImg.src = imagePath + "eye" + index + ".png";
+        eyeImg.src = eyePath + "eye" + index + ".png";
         eyeImg.style.display = '';
     }
 }
 function MouthButtonClick(index, elem_id) {
+
 
     if(MouthButton !== index) {
         const myButton = document.getElementById(elem_id);
@@ -94,15 +104,25 @@ function MouthButtonClick(index, elem_id) {
     }
 
     const mouth = document.getElementById(mouth_id);
+    const mouthImg = document.getElementById(mouth_image_id);
     if(MouthButton === index) {
         lastMouth = null;
         MouthButton = 0;
         mouth.value = null;
+        mouthImg.src = null;
+        mouthImg.style.display = 'none';
     } else {
         mouth.value = index;
         MouthButton = index;
         lastMouth = elem_id;
+        mouthImg.src = mouthPath + "mouth" + index + ".png";
+        mouthImg.style.display = '';
     }
+
+}
+
+function downloadImage() {
+
 }
 
 

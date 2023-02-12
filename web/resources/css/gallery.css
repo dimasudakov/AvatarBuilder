@@ -1,0 +1,62 @@
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.actions {
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 60px;
+}
+.actions button {
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+    border-radius: 3px;
+    border: aliceblue;
+    background: rgb(64,199,129);
+    box-shadow: 0 -3px rgb(53,167,110) inset;
+    transition: 0.2s;
+    width: 21%;
+}
+.actions button:not(.first) {
+    margin-left: 14px;
+}
+.actions button:hover {
+    background: rgb(53, 167, 110);
+}
+.actions button:active {
+    background: rgb(33, 147, 90);
+    box-shadow: 0 3px rgb(33, 147, 90) inset;
+}
+
+table {
+    text-align: center;
+    border-collapse: collapse;
+    width: 70%;
+    margin: 5% 0;
+}
+
+
+td {
+    padding: 11px;
+    width: 33%;
+}
+
+button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+button:active { background: rgb(0, 152, 20); } /* при нажатии */

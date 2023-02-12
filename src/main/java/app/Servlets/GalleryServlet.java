@@ -36,13 +36,21 @@ public class GalleryServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        if(req.getParameter("method") != null && req.getParameter("method").equals("DELETE")) {
+            doDelete(req, resp);
+            return;
+        }
+
+        HttpSession session = req.getSession();
+
         String avatar_name = req.getParameter("avatar_name");
         int hair = Integer.parseInt(req.getParameter("hair"));
         int eye = Integer.parseInt(req.getParameter("eye"));
         int mouth = Integer.parseInt(req.getParameter("mouth"));
+        int client_id = (Integer) session.getAttribute("client_id");
 
-        HttpSession session = req.getSession();
-        Avatar avatar = new Avatar(avatar_name, hair, eye, mouth, (Integer) session.getAttribute("client_id"));
+        Avatar avatar = new Avatar(avatar_name, hair, eye, mouth, client_id);
 
         try {
             AvatarJDBC avatarJDBC = new AvatarJDBC();
@@ -53,5 +61,20 @@ public class GalleryServlet extends HttpServlet {
         }
 
         doGet(req, resp);
+    }
+
+    @Override
+    public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HttpSession session = req.getSession();
+        int client_id = (Integer) session.getAttribute("client_id");
+        int id = Integer.parseInt(req.getParameter("deleteID"));
+        try {
+            AvatarJDBC avatarJDBC = new AvatarJDBC();
+            avatarJDBC.deleteAvatar(id, client_id);
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        resp.sendRedirect("/gallery");
     }
 }

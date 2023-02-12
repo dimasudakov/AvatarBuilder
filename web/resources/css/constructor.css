@@ -7,6 +7,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
     display: inline-block;
     float: left;
     width: 40%;
+    margin-top: 3%;
 }
 .elements {
     margin: 0 auto;
@@ -116,6 +117,7 @@ input[type=text] {
 .image-container {
     display: inline-block;
     margin-left: 200px;
+    margin-top: 5%;
     height: 650px;
     width: 600px;
     position: relative;
@@ -131,8 +133,19 @@ input[type=text] {
     left: 0;
 }
 
+.hair {
+    width: 100%;
+    height: 100%;
+}
+
 .eye {
     width: 70%;
     margin-left: 13%;
     margin-top: 36%;
+}
+
+.mouth {
+    width: 37%;
+    margin-top: 65%;
+    margin-left: 28%;
 }

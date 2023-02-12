@@ -5,7 +5,7 @@
 <head>
     <title>Sign Up</title>
 
-    <link rel="stylesheet" href="../authStyle.css">
+    <link rel="stylesheet" href="../resources/css/authStyle.css">
 
     //TODO
     <script type="text/javascript">

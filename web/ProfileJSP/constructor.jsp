@@ -2,8 +2,8 @@
 
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="/ProfileJSP/constructor.css">
-    <script type="text/javascript" src="/ProfileJSP/ButtonClick.js"></script>
+    <link rel="stylesheet" type="text/css" href="/resources/css/constructor.css">
+    <script type="text/javascript" src="/resources/js/ConstructonButtons.js"></script>
     <meta charset="UTF-8">
     <title>Заголовок страницы</title>
 </head>
@@ -60,13 +60,18 @@
             <button onclick="history.back()">Назад</button>
 
             <button type="submit">Создать</button>
+
+            <button type="button" onclick="downloadImage()">Скачать</button>
         </div>
     </div>
 </form>
 
     <div class="image-container">
         <img src="/ProfileJSP/FaceElements/StandartFace.png">
+        <img id="selectedHair" src="" class="hair" style="display: none;">
         <img id="selectedEye" src="" class="eye" style="display: none;">
+        <img id="selectedMouth" src="" class="mouth" style="display: none;">
+
     </div>
 
 </body>

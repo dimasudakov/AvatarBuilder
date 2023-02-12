@@ -21,7 +21,7 @@ public class UserJDBC implements UserDAO{
     public UserJDBC() throws IOException {
         Properties property = new Properties();
 
-        try (FileInputStream fis = new FileInputStream("C:\\Users\\user\\Desktop\\инфа\\jdbctest\\db.properties")){
+        try (FileInputStream fis = new FileInputStream("C:\\Users\\user\\Desktop\\jdbctest\\db.properties")){
             property.load(fis);
 
             String host = property.getProperty("db.host");

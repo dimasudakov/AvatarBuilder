@@ -12,7 +12,7 @@ button:hover {
     opacity: 0.8;
 }
 
-button:active { background: rgb(0, 152, 20); } /* при нажатии */
+button:active { background: rgb(0, 152, 20); }
 
 .center {
     display: flex;
