@@ -1,0 +1,138 @@
+body {font-family: Arial, Helvetica, sans-serif;}
+
+.options {
+    border: 3px solid black;
+    height: auto;
+    overflow: auto;
+    display: inline-block;
+    float: left;
+    width: 40%;
+}
+.elements {
+    margin: 0 auto;
+    width: 90%;
+}
+
+.elem_div {
+    margin: 0 auto;
+    width: 80%;
+    margin-top: 30px;
+}
+
+.avatar_name {
+    margin-top: 5%;
+}
+
+.variants {
+    margin-left: 12%;
+    width: 80%;
+}
+.variants button {
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+    border-radius: 3px;
+    border: aliceblue;
+    background: rgb(64,199,129);
+    box-shadow: 0 -3px rgb(53,167,110) inset;
+    transition: 0.2s;
+    width: 21%;
+}
+.variants button:not(.first) {
+    margin-left: 14px;
+}
+.variants button:hover {
+    background: rgb(53, 167, 110);
+}
+.variants button:active {
+    background: rgb(33, 147, 90);
+
+    box-shadow: 0 3px rgb(33, 147, 90) inset;
+}
+
+.elem_name {
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+    border-radius: 3px;
+    border: aliceblue;
+    background: rgb(64,199,129);
+    box-shadow: 0 -3px rgb(53,167,110) inset;
+    transition: 0.2s;
+    width: 100%;
+    margin: 10px 10px 10px 10px;
+}
+.elem_name:hover {
+    background: rgb(53, 167, 110);
+}
+.elem_name:active {
+    background: rgb(33, 147, 90);
+    box-shadow: 0 3px rgb(33, 147, 90) inset;
+}
+
+.save {
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+.save button {
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+    border-radius: 3px;
+    border: aliceblue;
+    background: rgb(64,199,129);
+    box-shadow: 0 -3px rgb(53,167,110) inset;
+    transition: 0.2s;
+    width: 21%;
+}
+.save button:not(.first) {
+    margin-left: 14px;
+}
+.save button:hover {
+    background: rgb(53, 167, 110);
+}
+.save button:active {
+    background: rgb(33, 147, 90);
+    box-shadow: 0 3px rgb(33, 147, 90) inset;
+}
+
+label {
+    margin-left: 19%;
+}
+
+input[type=text] {
+    width: 40%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.image-container {
+    display: inline-block;
+    margin-left: 200px;
+    height: 650px;
+    width: 600px;
+    position: relative;
+}
+
+.image-container img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.image-container img:not(:first-child) {
+    position: absolute;
+    left: 0;
+}
+
+.eye {
+    width: 70%;
+    margin-left: 13%;
+    margin-top: 36%;
+}
