@@ -1,15 +1,15 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="/resources/css/constructor.css">
-    <script type="text/javascript" src="/resources/js/ConstructonButtons.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/constructor.css">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/ConstructorButtons.js"></script>
     <meta charset="UTF-8">
     <title>Заголовок страницы</title>
 </head>
 
 
-<body>
+<body onload="loadImage()">
 <form action="gallery" method="post" onsubmit="return validateForm()">
     <div class="options">
         <div class="avatar_name">
@@ -52,22 +52,22 @@
             </div>
         </div>
 
+        <input type="hidden" name="updateIndex" id="updateIndex">
         <input type="hidden" name="hair" id="hairStyle">
         <input type="hidden" name="eye" id="eyeStyle">
         <input type="hidden" name="mouth" id="mouthStyle">
 
         <div class="save">
-            <button onclick="history.back()">Назад</button>
+            <button type="button" onclick="history.back()"> назад </button>
 
-            <button type="submit">Создать</button>
+            <button type="submit">Сохранить</button>
 
-            <button type="button" onclick="downloadImage()">Скачать</button>
         </div>
     </div>
 </form>
 
     <div class="image-container">
-        <img src="/ProfileJSP/FaceElements/StandartFace.png">
+        <img src="${pageContext.request.contextPath}/resources/FaceElements/StandartFace.png">
         <img id="selectedHair" src="" class="hair" style="display: none;">
         <img id="selectedEye" src="" class="eye" style="display: none;">
         <img id="selectedMouth" src="" class="mouth" style="display: none;">

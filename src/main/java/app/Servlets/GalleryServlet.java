@@ -2,6 +2,7 @@ package app.Servlets;
 
 import app.Dao.AvatarJDBC;
 import app.Entities.Avatar;
+import app.Exceptions.AvatarNotFoundException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,6 +42,10 @@ public class GalleryServlet extends HttpServlet {
             doDelete(req, resp);
             return;
         }
+        if(req.getParameter("method") != null && req.getParameter("method").equals("PUT")) {
+            doPut(req, resp);
+            return;
+        }
 
         HttpSession session = req.getSession();
 
@@ -54,6 +59,9 @@ public class GalleryServlet extends HttpServlet {
 
         try {
             AvatarJDBC avatarJDBC = new AvatarJDBC();
+            if(req.getParameter("updateIndex") != null && !req.getParameter("updateIndex").equals("")) {
+                avatarJDBC.deleteAvatar(Integer.parseInt(req.getParameter("updateIndex")), client_id);
+            }
             avatarJDBC.addAvatar(avatar);
         } catch (SQLException e) {
             //TODO
@@ -67,7 +75,7 @@ public class GalleryServlet extends HttpServlet {
     public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         int client_id = (Integer) session.getAttribute("client_id");
-        int id = Integer.parseInt(req.getParameter("deleteID"));
+        int id = Integer.parseInt(req.getParameter("deleteIndex"));
         try {
             AvatarJDBC avatarJDBC = new AvatarJDBC();
             avatarJDBC.deleteAvatar(id, client_id);
@@ -76,5 +84,28 @@ public class GalleryServlet extends HttpServlet {
         }
 
         resp.sendRedirect("/gallery");
+    }
+
+    @Override
+    public void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HttpSession session = req.getSession();
+        if(req.getParameter("updateIndex") != null) {
+            AvatarJDBC avatarJDBC = new AvatarJDBC();
+            int client_id = (int) session.getAttribute("client_id");
+            int updateIndex = Integer.parseInt(req.getParameter("updateIndex"));
+            Avatar avatar;
+
+            try {
+                avatar = avatarJDBC.getAvatarByIndex(updateIndex, client_id);
+                String url = "/constructor?updateIndex=" + updateIndex +
+                        "&name=" + avatar.getName() +
+                        "&hair=" + avatar.getHair_id() +
+                        "&eye=" + avatar.getEye_id() +
+                        "&mouth=" + avatar.getMouth_id();
+                resp.sendRedirect(url);
+            } catch (SQLException | AvatarNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

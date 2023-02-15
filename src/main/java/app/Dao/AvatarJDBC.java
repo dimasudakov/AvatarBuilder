@@ -1,5 +1,6 @@
 package app.Dao;
 
+import app.Exceptions.AvatarNotFoundException;
 import app.Entities.Avatar;
 
 import java.io.FileInputStream;
@@ -69,6 +70,34 @@ public class AvatarJDBC {
         if(generatedKeys.next()) {
             avatar.setId(generatedKeys.getInt(1));
         }
+    }
+
+    public Avatar getAvatarByIndex(int index, int client_id) throws SQLException, AvatarNotFoundException {
+        String sql = "SELECT * FROM avatars " +
+                "WHERE id = (" +
+                    "SELECT id " +
+                    "FROM avatars " +
+                    "WHERE client_id=?" +
+                    "ORDER BY id " +
+                    "LIMIT 1 OFFSET " + (index - 1) +
+                ");";
+
+        PreparedStatement ps = this.connection.prepareStatement(sql);
+        ps.setInt(1, client_id);
+
+        ResultSet rs = ps.executeQuery();
+        Avatar result = new Avatar();
+        if(rs.next()) {
+            result.setId(rs.getInt("id"));
+            result.setName(rs.getString("name"));
+            result.setHair_id(rs.getInt("hair"));
+            result.setEye_id(rs.getInt("eye"));
+            result.setMouth_id(rs.getInt("mouth"));
+        } else {
+            throw new AvatarNotFoundException("Не удалось найти выбранный элемент");
+        }
+
+        return result;
     }
 
     public void deleteAvatar(int index, int client_id) throws SQLException {

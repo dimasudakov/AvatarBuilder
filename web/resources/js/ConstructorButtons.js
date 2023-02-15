@@ -18,6 +18,40 @@ let hairPath = "/resources/FaceElements/Hairs/";
 let eyePath = "/resources/FaceElements/Eyes/";
 let mouthPath = "/resources/FaceElements/Mouths/";
 
+function getParameterByName(name, url = window.location.href) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+function loadImage() {
+    if(getParameterByName("updateIndex") == null){
+        return;
+    }
+    showAllVariants();
+    tagAllCategories();
+    const index = document.getElementById("updateIndex");
+    index.value = getParameterByName("updateIndex");
+}
+function showAllVariants() {
+    ShowVariants("hair");
+    ShowVariants("eyes");
+    ShowVariants("mouth");
+}
+function tagAllCategories() {
+    const name = getParameterByName("name");
+    const hair = getParameterByName("hair");
+    const eye = getParameterByName("eye");
+    const mouth = getParameterByName("mouth");
+    document.getElementById("avatar_name").value = name;
+    HairButtonClick(hair, "hair" + hair);
+    EyeButtonClick(eye, "eye" + eye);
+    MouthButtonClick(mouth, "mouth" + mouth);
+}
+
 function ShowVariants(elem_id){
     if(document.getElementById(elem_id).style.display === ''){
         document.getElementById(elem_id).style.display = 'none';
@@ -93,7 +127,6 @@ function EyeButtonClick(index, elem_id) {
 }
 function MouthButtonClick(index, elem_id) {
 
-
     if(MouthButton !== index) {
         const myButton = document.getElementById(elem_id);
         myButton.style.backgroundColor = "#d24675";
@@ -118,10 +151,6 @@ function MouthButtonClick(index, elem_id) {
         mouthImg.src = mouthPath + "mouth" + index + ".png";
         mouthImg.style.display = '';
     }
-
-}
-
-function downloadImage() {
 
 }
 

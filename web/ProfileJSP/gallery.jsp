@@ -6,8 +6,8 @@
 <html>
 <head>
     <title>Gallery</title>
-    <link rel="stylesheet" href="/resources/css/gallery.css">
-    <script type="text/javascript" src="/resources/js/GalleryButtons.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/gallery.css">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/GalleryButtons.js"></script>
 </head>
 <body>
     <div class="center">
@@ -16,7 +16,7 @@
         %>
 
         <c:if test="${requestScope.avatarsNumber == 0}">
-            asking gasbags
+
         </c:if>
 
         <c:if test="${requestScope.avatarsNumber != 0}">
@@ -26,15 +26,22 @@
     </div>
 
     <div class="actions">
-        <button onclick = "location.href='/menu'">Назад</button>
+        <button onclick = "location.href='/menu'"> Меню </button>
 
-        <button type="button" onclick="updateAva()">Изменить</button>
+        <form action="gallery" method="post">
+            <input type="hidden" name="method" value="PUT">
+            <input type="hidden" name="updateIndex" id="updateIndex">
+            <button type="submit" id="updateButton" disabled onclick="setUpdateIndex()"> Изменить </button>
+        </form>
 
-        <button type="button" onclick="downloadAva()">Скачать</button>
+        <a href="download" download id="downloadLink" onclick="setDownloadIndex()">
+            <input type="hidden" name="downloadIndex" id="downloadIndex">
+            <button id="downloadButton" disabled> Скачать </button>
+        </a>
 
         <form action="gallery" method="post">
             <input type="hidden" name="method" value="DELETE">
-            <input type="hidden" name="deleteID" id="deleteID">
+            <input type="hidden" name="deleteIndex" id="deleteIndex">
             <button type="submit" onclick="deleteAva()"> Удалить </button>
         </form>
 
