@@ -1,6 +1,7 @@
 package app.Servlets;
 
 import app.Dao.AvatarJDBC;
+import app.Dao.GalleryJDBC;
 import app.Entities.Avatar;
 import app.Exceptions.AvatarNotFoundException;
 
@@ -14,8 +15,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet("/gallery")
-public class GalleryServlet extends HttpServlet {
+@WebServlet("/myGallery")
+public class MyGalleryServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,7 +25,7 @@ public class GalleryServlet extends HttpServlet {
 
         ArrayList<String> avatarNames = new ArrayList<>();
         try {
-            avatarNames = db.getAvatarNamesByID((Integer) session.getAttribute("client_id"));
+            avatarNames = db.getAvatarNamesByClientID((Integer) session.getAttribute("client_id"));
         } catch (SQLException e) {
             //TODO
             e.printStackTrace();
@@ -50,6 +51,7 @@ public class GalleryServlet extends HttpServlet {
         HttpSession session = req.getSession();
 
         String avatar_name = req.getParameter("avatar_name");
+
         int hair = Integer.parseInt(req.getParameter("hair"));
         int eye = Integer.parseInt(req.getParameter("eye"));
         int mouth = Integer.parseInt(req.getParameter("mouth"));
@@ -60,9 +62,12 @@ public class GalleryServlet extends HttpServlet {
         try {
             AvatarJDBC avatarJDBC = new AvatarJDBC();
             if(req.getParameter("updateIndex") != null && !req.getParameter("updateIndex").equals("")) {
-                avatarJDBC.deleteAvatar(Integer.parseInt(req.getParameter("updateIndex")), client_id);
+                int id = Integer.parseInt(req.getParameter("avatarID"));
+                avatar.setId(id);
+                avatarJDBC.updateAvatar(avatar);
+            } else {
+                avatarJDBC.addAvatar(avatar);
             }
-            avatarJDBC.addAvatar(avatar);
         } catch (SQLException e) {
             //TODO
             e.printStackTrace();
@@ -75,15 +80,16 @@ public class GalleryServlet extends HttpServlet {
     public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         int client_id = (Integer) session.getAttribute("client_id");
-        int id = Integer.parseInt(req.getParameter("deleteIndex"));
+        int index = Integer.parseInt(req.getParameter("deleteIndex"));
         try {
             AvatarJDBC avatarJDBC = new AvatarJDBC();
-            avatarJDBC.deleteAvatar(id, client_id);
-        } catch (IOException | SQLException e) {
+            int id = avatarJDBC.getIDbyIndex(index, client_id);
+            avatarJDBC.deleteAvatar(id);
+        } catch (IOException | SQLException | AvatarNotFoundException e) {
             e.printStackTrace();
         }
 
-        resp.sendRedirect("/gallery");
+        resp.sendRedirect("/myGallery");
     }
 
     @Override
@@ -97,7 +103,9 @@ public class GalleryServlet extends HttpServlet {
 
             try {
                 avatar = avatarJDBC.getAvatarByIndex(updateIndex, client_id);
+                System.out.println(avatar.toString());
                 String url = "/constructor?updateIndex=" + updateIndex +
+                        "&avatarID=" + avatar.getId() +
                         "&name=" + avatar.getName() +
                         "&hair=" + avatar.getHair_id() +
                         "&eye=" + avatar.getEye_id() +

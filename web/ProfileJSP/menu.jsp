@@ -16,10 +16,12 @@
             </form>
         </tr>
         <tr>
-            <td><button style="width: 100%;">Сгенерировать аватар</button></td>
+            <form action="gallery" method="get">
+                <td><button style="width: 100%;">Общая галлерея</button></td>
+            </form>
         </tr>
         <tr>
-                <form action="gallery" method="get">
+                <form action="myGallery" method="get">
                     <td><button style="width: 100%;">Мои аватары</button></td>
                 </form>
         </tr>

@@ -3,14 +3,14 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/constructor.css">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/ConstructorButtons.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/Constructor.js"></script>
     <meta charset="UTF-8">
     <title>Заголовок страницы</title>
 </head>
 
 
 <body onload="loadImage()">
-<form action="gallery" method="post" onsubmit="return validateForm()">
+<form action="myGallery" method="post" onsubmit="return validateForm()">
     <div class="options">
         <div class="avatar_name">
             <label>Имя аватара:
@@ -52,6 +52,7 @@
             </div>
         </div>
 
+        <input type="hidden" name="avatarID" id="avatarID">
         <input type="hidden" name="updateIndex" id="updateIndex">
         <input type="hidden" name="hair" id="hairStyle">
         <input type="hidden" name="eye" id="eyeStyle">
@@ -68,10 +69,9 @@
 
     <div class="image-container">
         <img src="${pageContext.request.contextPath}/resources/FaceElements/StandartFace.png">
-        <img id="selectedHair" src="" class="hair" style="display: none;">
         <img id="selectedEye" src="" class="eye" style="display: none;">
+        <img id="selectedHair" src="" class="hair" style="display: none;">
         <img id="selectedMouth" src="" class="mouth" style="display: none;">
-
     </div>
 
 </body>

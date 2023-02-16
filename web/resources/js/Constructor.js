@@ -35,6 +35,8 @@ function loadImage() {
     tagAllCategories();
     const index = document.getElementById("updateIndex");
     index.value = getParameterByName("updateIndex");
+    const avatarID = document.getElementById("avatarID");
+    avatarID.value = getParameterByName("avatarID");
 }
 function showAllVariants() {
     ShowVariants("hair");
@@ -153,7 +155,5 @@ function MouthButtonClick(index, elem_id) {
     }
 
 }
-
-
 
 

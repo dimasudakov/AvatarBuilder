@@ -7,7 +7,7 @@
 <head>
     <title>Gallery</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/gallery.css">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/GalleryButtons.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/MyGallery.js"></script>
 </head>
 <body>
     <div class="center">
@@ -28,7 +28,7 @@
     <div class="actions">
         <button onclick = "location.href='/menu'"> Меню </button>
 
-        <form action="gallery" method="post">
+        <form action="myGallery" style="margin: 0; padding: 0;" method="post">
             <input type="hidden" name="method" value="PUT">
             <input type="hidden" name="updateIndex" id="updateIndex">
             <button type="submit" id="updateButton" disabled onclick="setUpdateIndex()"> Изменить </button>
@@ -39,10 +39,15 @@
             <button id="downloadButton" disabled> Скачать </button>
         </a>
 
-        <form action="gallery" method="post">
+        <form action="myGallery" method="post">
             <input type="hidden" name="method" value="DELETE">
             <input type="hidden" name="deleteIndex" id="deleteIndex">
             <button type="submit" onclick="deleteAva()"> Удалить </button>
+        </form>
+
+        <form action="gallery" style="margin: 0; padding: 0;" method="post">
+            <input type="hidden" name="postIndex" id="postIndex">
+            <button type="submit" id="postButton" disabled onclick="setPostIndex()"> Опубликовать </button>
         </form>
 
     </div>

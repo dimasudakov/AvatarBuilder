@@ -36,7 +36,7 @@ public class AvatarJDBC {
         }
     }
 
-    public ArrayList<String> getAvatarNamesByID(int ID) throws SQLException {
+    public ArrayList<String> getAvatarNamesByClientID(int ID) throws SQLException {
         String sql = "SELECT name FROM avatars " +
                 "where client_id=? order by id";
         PreparedStatement ps = this.connection.prepareStatement(sql);
@@ -100,19 +100,47 @@ public class AvatarJDBC {
         return result;
     }
 
-    public void deleteAvatar(int index, int client_id) throws SQLException {
+    public void deleteAvatar(int id) throws SQLException, IOException {
+        GalleryJDBC galleryJDBC = new GalleryJDBC();
+        if(galleryJDBC.contains(id)) {
+            galleryJDBC.deleteAvatar(id);
+        }
         String sql = "DELETE FROM avatars " +
-                    "WHERE id = (" +
-                        "SELECT id " +
-                        "FROM avatars " +
-                        "WHERE client_id=?" +
-                        "ORDER BY id " +
-                        "LIMIT 1 OFFSET " + (index - 1) +
-                    ");";
+                    "WHERE id = ?";
 
         PreparedStatement ps = this.connection.prepareStatement(sql);
-        ps.setInt(1, client_id);
+        ps.setInt(1, id);
 
         ps.executeUpdate();
+    }
+
+    public void updateAvatar(Avatar avatar) throws SQLException {
+        PreparedStatement ps = this.connection.prepareStatement(
+                "UPDATE avatars SET name = ?, hair = ?, eye = ?, mouth = ?" +
+                        " WHERE id = ?");
+        ps.setString(1, avatar.getName());
+        ps.setInt(2, avatar.getHair_id());
+        ps.setInt(3, avatar.getEye_id());
+        ps.setInt(4, avatar.getMouth_id());
+        ps.setInt(5, (int) avatar.getId());
+
+        ps.executeUpdate();
+    }
+
+    public int getIDbyIndex(int index, int client_id) throws SQLException, AvatarNotFoundException {
+        PreparedStatement ps = this.connection.prepareStatement(
+                "Select id from avatars " +
+                        "where client_id = ? " +
+                        "order by id " +
+                        "limit 1 offset " + (index - 1)
+        );
+        ps.setInt(1, client_id);
+        ResultSet rs = ps.executeQuery();
+
+        if(rs.next()) {
+            return rs.getInt(1);
+        } else {
+            throw new AvatarNotFoundException("Не удалось найти выбранный элемент");
+        }
     }
 }
